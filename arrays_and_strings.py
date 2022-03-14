@@ -98,6 +98,65 @@ def palindrome_permutation(string):
     else:
         return False
 
+def one_away(string1, string2):
+    """There are three types of edits that can be performed on strings: insert a character,
+remove a character, or replace a character. Given two strings, write a function to check if they are
+one edit (or zero edits) away.
+EXAMPLE
+pale, ple -> true
+pales, pale -> true
+pale, bale -> true
+pale, bake -> false"""
+    
+    # preliminary check
+    # if one string is longer by 2, then automatically, a single edit won't be enough
+    difference = len(string1) - len(string2)
+    longer_string = string1 if len(string1) > len(string2) else string2
+    shorter_string = string2 if len(string1) > len(string2) else string1
+    if difference > 1 or difference < -1:
+        return False 
+
+    one_character_difference = False
+
+    def one_char_is_different(shorter_string, longer_string):
+        for i in range(len(shorter_string)):
+            if shorter_string[i] != longer_string[i]:
+                return i,True
+        return None, False
+
+    
+
+
+    if difference == 0:# same length thus an index can be used
+        
+        for i in range(len(string1)):
+            if string1[i] != string2[i] and one_character_difference is True:
+                return False
+            if string1[i] != string2[i] and one_character_difference is False:
+                one_character_difference = True
+    else:   #length differs by one
+        index, one_character_difference = one_char_is_different(shorter_string, longer_string)
+        # remove the character from that index in the longer string
+        if index is not None:
+            longer_string_array = list(longer_string)
+            print("longer string before")
+            print(longer_string)
+            longer_string_array[index] =""
+            longer_string = "".join(longer_string_array)
+            print("longer string after")
+            print(longer_string)
+        # perform the same operation since they are now same length
+        #note that one_character_difference is now True since one character already failed
+        for i in range(len(shorter_string)):
+            if shorter_string[i] != longer_string[i] and one_character_difference is True:
+                return False
+            if shorter_string[i] != longer_string[i] and one_character_difference is False:
+                one_character_difference = True
+                
+
+    return True
+
+
 
 
 def string_compression(string):
@@ -139,7 +198,33 @@ the original string. You can assume the string has only uppercase and lowercase 
 
 
 
+def rotate_matrix(matrix):
+    """Given an image represented by an NxN matrix, where each pixel in the image is 4
+    bytes, write a method to rotate the image by 90 degrees."""
+    # print the before matrix
+    print('Before matrix')
+    for row in matrix:
+        print(row)
 
+    n = len(matrix)
+    #initialize zero matrix NxN
+    new_matrix = [[0 for _ in range(len(matrix))] for _ in range(len(matrix))]
+
+    #to rotate by 90 degrees,
+    #previous -> some_row, some step from 0
+    #new -> some step from N, some row
+
+    for row in range(n):
+        for column in range(n):
+            current_val = matrix[row][column]
+            new_matrix[n-1-column][row] = current_val
+        
+
+    # print the after matrix
+    print('After matrix')
+    for row in new_matrix:
+        print(row)
+    
 
 def zero_matrix(matrix):
     """Write an algorithm such that if an element in an MxN matrix is 0, 
@@ -174,6 +259,12 @@ def zero_matrix(matrix):
     for row in matrix:
         print(row)
 
+
+
+
+
+
+
 if __name__ == "__main__":
     
     #1
@@ -187,9 +278,20 @@ if __name__ == "__main__":
     #4
     #result = palindrome_permutation("racecar")
     #print(result)
-    #6
-    result = string_compression("aabcccccaaa")
+    #5
+    result = one_away("pale","pale")
     print(result)
+    #6
+    #result = string_compression("aabcccccaaa")
+    #print(result)
+    #7
+    # rotate_matrix([
+    #         [1, 2, 3, 4, 5],
+    #         [6, 7, 8, 9, 10],
+    #         [11, 12, 13, 14, 15],
+    #         [16, 17, 18, 19, 20],
+    #         [21, 22, 23, 24, 25]
+    #     ])
     #8
     #zero_matrix([
     #        [1, 2, 3, 4, 0],
