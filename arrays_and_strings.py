@@ -97,7 +97,82 @@ def palindrome_permutation(string):
         return True
     else:
         return False
-    
+
+
+
+def string_compression(string):
+    """Implement a method to perform basic string compression using the counts
+of repeated characters. For example, the string aabcccccaaa would become a2blc5a3. If the
+"compressed" string would not become smaller than the original string, your method should return
+the original string. You can assume the string has only uppercase and lowercase letters (a - z)."""
+
+    final_string_list = []
+    char_count = 0
+    prev_char = ""
+
+    for char in string:
+        if prev_char == char:
+            char_count += 1         # increase count if char is same as previous
+        else:   # current char differs from the previous
+            # we should append the previous and it's count and then set our current as previous.
+            # we also reset the count to 1
+            if char_count != 0 and prev_char != "": # prevent appending zeros and empty for the first step
+                final_string_list.append(prev_char)
+                final_string_list.append(str(char_count))
+            
+            prev_char = char
+            char_count = 1    
+    # append the final chaarcter and its count.
+    # The loop above only appends when there is a change between the previous
+    # and current character.
+    # for the final character, there is no change from the previous and thus we append it manually        
+    final_string_list.append(prev_char)
+    final_string_list.append(str(char_count))
+
+    final_string = "".join(final_string_list)
+
+    if len(string) <= len(final_string):
+        return string
+    return final_string
+
+
+
+
+
+
+
+def zero_matrix(matrix):
+    """Write an algorithm such that if an element in an MxN matrix is 0, 
+    its entire row and column is set to 0"""
+
+    # first mark all the places with zeros.
+    # don't replace first, otherwise the entire matrix will be replaced to zeros
+
+    # print the before matrix
+    print('Before matrix')
+    for row in matrix:
+        print(row)
+    mark_list = []
+
+    no_of_rows = len(matrix)
+    no_of_columns = len(matrix[0])
+
+    for row in range(no_of_rows):
+        for column in range(no_of_columns):
+            if matrix[row][column] == 0:
+                mark_list.append((row,column))
+
+    for mark in mark_list:
+        row,column = mark
+        for single_column in range(no_of_columns):
+            matrix[row][single_column] = 0
+        for single_row in range(no_of_rows):
+            matrix[single_row][column] = 0
+
+    # print the after matrix
+    print("After Matrix")
+    for row in matrix:
+        print(row)
 
 if __name__ == "__main__":
     
@@ -110,5 +185,16 @@ if __name__ == "__main__":
     #3
     #urllify(13,"mr john smith   ")
     #4
-    result = palindrome_permutation("racecar")
+    #result = palindrome_permutation("racecar")
+    #print(result)
+    #6
+    result = string_compression("aabcccccaaa")
     print(result)
+    #8
+    #zero_matrix([
+    #        [1, 2, 3, 4, 0],
+    #        [6, 0, 8, 9, 10],
+    #        [11, 12, 13, 14, 15],
+    #        [16, 0, 18, 19, 20],
+    #        [21, 22, 23, 24, 25]
+    #    ])
