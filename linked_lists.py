@@ -70,7 +70,47 @@ def kth_to_last(ll, k):
 
     return current_node.value
 
+def delete_middle_node(ll, given_node):
+    """
+    Implement an algorithm to delete a node in the middle (i.e., any node but
+    the first and last node, not necessarily the exact middle) of a singly linked list, given only access to
+    that node.
+    EXAMPLE
+    lnput:the node c from the linked lista->b->c->d->e->f
+    Result: nothing is returned, but the new linked list looks like a->b->d->e- >f
+
+    --my solution--
+    To delete a node, you need the next value of the previous node to the one after the current node
+    Think of a ll with 1-2-3
+    Given node 2
+    We can easily get 3 from the next value of 2
+    TO get 1, go through the ll as look for node whose next value is 2.
+    Also confirm that the next of that 2 is the 3 you expect.
+    This prevents deleting the wrong node
+    Then set next of 1 as 3. Then you're done
+
+    --very easy solution-----
+    given 1-2-3-4
+    we want to delete 2.
+    replace value and next of 2 with those of it's next node. In this case 3
+    so it becomes 1-3-4 since value of 3 was 3 and it's next was 4
+    so instead of next being 3 we go to 4 thus basically eliminating the original 3 node
+    """
+    # preliminary - empty list
+    if ll.head is None:
+        return
+
+    node_3 = given_node.next
+    current_node = ll.head
+    # find node_1
+    while current_node.next is not None:
+        if current_node.next == given_node: # suspected node_2
+            if current_node.next.next == node_3: # confirmed node_2
+                break
+        current_node = current_node.next
     
+    current_node.next = given_node.next
+    return ll
 
 if __name__ == "__main__":
     #1
@@ -80,9 +120,18 @@ if __name__ == "__main__":
     # remove_dups(ll)
     # print(ll)
     #2
+    #ll = LinkedList()
+    #ll.generate(10, 0, 99)
+    #print(ll)
+    #print(kth_to_last(ll, 3))
+    #3
     ll = LinkedList()
-    ll.generate(10, 0, 99)
+    ll.add_multiple([1, 2, 3, 4])
+    middle_node = ll.add(5)
+    ll.add_multiple([7, 8, 9])
     print(ll)
-    print(kth_to_last(ll, 3))
+    delete_middle_node(ll, middle_node)
+    print(ll)
+
 
 
