@@ -137,21 +137,23 @@ Output:3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
         return
 
     current_node = ll.head
-    left_partition = []
+    left_partition = LinkedList()
     right_partition_array = []
 
     while current_node.next is not None:
         if current_node.value < x :
-            left_par
+            left_partition.add(current_node.value)
+            current_node = current_node.next
         else:
             right_partition_array.append(current_node.value)
+            current_node = current_node.next
 
     for i in range(len(right_partition_array)):
         left_partition.add(right_partition_array[i])
     
-    final_ll = left_partition
+    
 
-    return final_ll
+    return left_partition
     
 
 if __name__ == "__main__":
