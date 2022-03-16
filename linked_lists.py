@@ -1,4 +1,5 @@
 from LinkedList import LinkedList
+import math
 
 def remove_dups(ll):
     """Write code to remove duplicates from an unsorted linked list.
@@ -211,6 +212,50 @@ Output: 2 -> 1 -> 9. That is, 912.
     return final_ll
 
 
+def palindrome(ll):
+    """Implement a function to check if a linked list is a palindrome.
+    
+    ---------- my solution-----------
+    This is a singly linked list so having two pointers one at head and one at tail will not work easily
+    due to challenge in going back.
+    We can use a stack where we push the first floor(n/2) elements.
+    Depending on whether n is odd or even we may skip the middle node.
+    After that, pop each value and compare it to current value.
+    If equal go to next node and repeat.
+    If all completed without error, then it is a palindrome.
+    e.g racecar
+    push r,a,c
+    skip middle node e since n is odd
+    at c, pop stack which will return c and compare.
+    Go to next node a, repeat.
+    """
+
+
+    my_stack = []
+
+    n= len(ll)
+    number_of_steps = math.floor(n/2)
+
+    current_node = ll.head
+    #move pointer to middle or node next to middle
+    for i in range(number_of_steps):
+        my_stack.append(current_node.value)
+        current_node = current_node.next
+
+    #skip middle node if n is odd
+    if n%2 != 0:
+        current_node = current_node.next
+    #now at second half
+    for i in range(number_of_steps):
+        my_value = my_stack.pop()
+        current_value = current_node.value
+
+        if my_value != current_value:
+            return False
+        
+        current_node = current_node.next
+    
+    return True
 
 
 if __name__ == "__main__":
@@ -239,10 +284,15 @@ if __name__ == "__main__":
     #print(ll)
     #print(partition(ll, 5))
     #5
-    ll1 = LinkedList()
-    ll2 = LinkedList()
-    ll1.add_multiple([7,1,6])
-    ll2.add_multiple([5,9,2])
-    print(sum_lists(ll1, ll2))
+    # ll1 = LinkedList()
+    # ll2 = LinkedList()
+    # ll1.add_multiple([7,1,6])
+    # ll2.add_multiple([5,9,2])
+    # print(sum_lists(ll1, ll2))
+    #6
+    ll = LinkedList()
+    ll.add_multiple(['r','a','c','e','c','a','r'])
+    print(palindrome(ll))
+  
 
 
