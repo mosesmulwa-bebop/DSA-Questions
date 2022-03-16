@@ -1,5 +1,3 @@
-from turtle import right
-from typing import final
 from LinkedList import LinkedList
 
 def remove_dups(ll):
@@ -155,6 +153,65 @@ Output:3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 
     return left_partition
     
+def sum_lists(ll1, ll2):
+    """You have two numbers represented by a linked list, where each node contains a single
+digit. The digits are stored in reverse order, such that the 1 's digit is at the head of the list. Write a
+function that adds the two numbers and returns the sum as a linked list.
+EXAMPLE
+Input: (7-> 1 -> 6) + (5 -> 9 -> 2).That is,617 + 295.
+Output: 2 -> 1 -> 9. That is, 912.
+    ----my solution---------------
+    Read each ll and store the values in an array.
+    Reverse the arrays and join into a string which can be converted to an int
+    The int can be converted to a string and then to an array.
+    Reverse the array.
+    For each element add it into a linked list.
+    Return the linked list
+"""
+    # both lls empty
+    if ll1.head is None and ll2.head is None:
+        return
+
+    ll1_array = []
+    ll2_array = []
+
+    current_node1 = ll1.head
+    current_node2 = ll2.head
+
+    while current_node1.next is not None:
+        ll1_array.append(str(current_node1.value))
+        current_node1 = current_node1.next
+    ll1_array.append(str(current_node1.value))# for the final value
+
+
+    while current_node2.next is not None:
+        ll2_array.append(str(current_node2.value))
+        current_node2 = current_node2.next
+    ll2_array.append(str(current_node2.value))# for the final value
+
+    ll1_array.reverse()
+    ll2_array.reverse()
+
+    ll1_string = "".join(ll1_array)
+    ll2_string = "".join(ll2_array)
+
+    ll1_num = int(ll1_string)
+    ll2_num = int(ll2_string)
+    
+    result = ll1_num + ll2_num
+    result_string = str(result)
+    result_list = list(result_string)
+    result_list.reverse()
+
+    final_ll = LinkedList()
+
+    for i in range(len(result_list)):
+        final_ll.add(result_list[i])
+
+    return final_ll
+
+
+
 
 if __name__ == "__main__":
     #1
@@ -177,10 +234,15 @@ if __name__ == "__main__":
     # delete_middle_node(ll, middle_node)
     # print(ll)
     #4
-    ll = LinkedList()
-    ll.add_multiple([3,5, 8, 5,10 ,2, 1])
+    #ll = LinkedList()
+    #ll.add_multiple([3,5, 8, 5,10 ,2, 1])
     #print(ll)
-    print(partition(ll, 5))
-
+    #print(partition(ll, 5))
+    #5
+    ll1 = LinkedList()
+    ll2 = LinkedList()
+    ll1.add_multiple([7,1,6])
+    ll2.add_multiple([5,9,2])
+    print(sum_lists(ll1, ll2))
 
 
