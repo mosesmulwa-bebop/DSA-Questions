@@ -1,6 +1,35 @@
 from LinkedList import LinkedList
 import math
 
+
+"""Workimg with linked lists.
+
+If we want to move pointer to the tail or some values then 
+
+while current_node.next is not None:
+    current_node = current_node.next
+
+Will work perfectly.
+
+
+However, if we are also operating on the values in each node, then the loop above will not 
+work for the tail node since it will not run.
+You can solve this by manually running the final iteration yourself.
+
+Or you can use a do while loop though I have not tested it yet.
+
+"""
+
+
+
+
+
+
+
+
+
+
+
 def remove_dups(ll):
     """Write code to remove duplicates from an unsorted linked list.
     ll is a singly linked list so we only have access to next value 
@@ -257,6 +286,32 @@ def palindrome(ll):
     
     return True
 
+def loop_detection(ll):
+    """Given a circular linked list, implement an algorithm that returns the node at the
+beginning of the loop.
+DEFINITION
+Circular linked list: A (corrupt) linked list in which a node's next pointer points to an earlier node, so
+as to make a loop in the linked list.
+EXAMPLE
+Input: A -> B -> C - > D -> E -> C [the same C as earlier]
+Output: C
+    -----------------my solution------------
+    create a set of all seen values. return if node already seen
+
+"""
+
+    current_node = ll.head
+    # create a new set 
+    seen_values = set([])    
+    
+    while current_node.next is not None:
+        if current_node.value in seen_values:
+            return current_node.value
+        seen_values.add(current_node.value)
+        current_node = current_node.next
+    #final value
+    if current_node.value in seen_values:
+        return current_node.value       
 
 if __name__ == "__main__":
     #1
@@ -290,9 +345,11 @@ if __name__ == "__main__":
     # ll2.add_multiple([5,9,2])
     # print(sum_lists(ll1, ll2))
     #6
+    #ll = LinkedList()
+    #ll.add_multiple(['r','a','c','e','c','a','r'])
+    #print(palindrome(ll))
+    #7
     ll = LinkedList()
-    ll.add_multiple(['r','a','c','e','c','a','r'])
-    print(palindrome(ll))
-  
-
-
+    ll.add_multiple(['a','b','c','d','e','c'])
+    print(ll)
+    print(loop_detection(ll))
