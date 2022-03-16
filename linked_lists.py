@@ -1,3 +1,5 @@
+from turtle import right
+from typing import final
 from LinkedList import LinkedList
 
 def remove_dups(ll):
@@ -112,6 +114,46 @@ def delete_middle_node(ll, given_node):
     current_node.next = given_node.next
     return ll
 
+def partition(ll, x):
+    """
+    Write code to partition a linked list around a value x, such that all nodes less than x come
+before all nodes greater than or equal to x. If x is contained within the list, the values of x only need
+to be after the elements less than x (see below). The partition element x can appear anywhere in the
+"right partition"; it does not need to appear between the left and right partitions.
+EXAMPLE
+Input: 3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1 [partition= 5]
+Output:3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
+
+    -----------my solution---------
+    create a left partition and a right partition
+    Go through the ll. Anything less than x goes to left partition.
+    Else right partition.
+    After,join left and right partition.
+    Return final linked list
+
+    """
+    # preliminary - empty list
+    if ll.head is None:
+        return
+
+    current_node = ll.head
+    left_partition = []
+    right_partition_array = []
+
+    while current_node.next is not None:
+        if current_node.value < x :
+            left_par
+        else:
+            right_partition_array.append(current_node.value)
+
+    for i in range(len(right_partition_array)):
+        left_partition.add(right_partition_array[i])
+    
+    final_ll = left_partition
+
+    return final_ll
+    
+
 if __name__ == "__main__":
     #1
     # ll = LinkedList()
@@ -125,13 +167,18 @@ if __name__ == "__main__":
     #print(ll)
     #print(kth_to_last(ll, 3))
     #3
+    # ll = LinkedList()
+    # ll.add_multiple([1, 2, 3, 4])
+    # middle_node = ll.add(5)
+    # ll.add_multiple([7, 8, 9])
+    # print(ll)
+    # delete_middle_node(ll, middle_node)
+    # print(ll)
+    #4
     ll = LinkedList()
-    ll.add_multiple([1, 2, 3, 4])
-    middle_node = ll.add(5)
-    ll.add_multiple([7, 8, 9])
-    print(ll)
-    delete_middle_node(ll, middle_node)
-    print(ll)
+    ll.add_multiple([3,5, 8, 5,10 ,2, 1])
+    #print(ll)
+    print(partition(ll, 5))
 
 
 
