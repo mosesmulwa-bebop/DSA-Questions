@@ -1,4 +1,19 @@
-import math
+"""
+To sort a sequence S with n elements using the
+three divide-and-conquer steps, the merge-sort algorithm proceeds as follows:
+1. Divide: If S has zero or one element, return S immediately; it is already
+sorted. Otherwise (S has at least two elements), remove all the elements
+from S and put them into two sequences, S1 and S2, each containing about
+half of the elements of S; that is, S1 contains the first floor(n/2) elements of S,
+and S2 contains the remaining ceil(n/2) elements.
+2. Conquer: Recursively sort sequences S1 and S2.
+3. Combine: Put back the elements into S by merging the sorted sequences S1
+and S2 into a sorted sequence.
+
+
+"""
+
+
 def merge(S1, S2, S):
     """A function which takes in two sorted lists and merges them into 
     S- unsorted list that is the "parent" of S1 and S2"""
