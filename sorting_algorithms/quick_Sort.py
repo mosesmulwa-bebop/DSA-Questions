@@ -13,3 +13,40 @@ the pivot itself.
 3. Combine: Put back the elements into S in order by first inserting the elements
 of L, then those of E, and finally those of G.
 """
+
+def quick_sort(S):
+
+    n = len(S)
+
+    #base case
+    if n < 2:   # if 1 or 0 elements return
+        return S
+
+
+    L = []
+    E = []
+    G = []
+
+    x = S[-1]
+    for i in range(n):
+        if S[i] < x:
+            L.append(S[i])
+        elif S[i] == x:
+            E.append(S[i])
+        elif S[i] > x:
+            G.append(S[i])
+
+    
+    L = quick_sort(L)
+    G = quick_sort(G)
+    S = L + E + G
+    return S  
+
+    
+
+
+if __name__ == "__main__":
+    my_array = [1,57,6,9,78,3,11,56]
+    print(quick_sort(my_array))
+    #print(my_array)
+    
